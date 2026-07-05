@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hassan Mustafa — Hardware Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #141414; --bg3: #1a1a1a; --border: #2a2a2a;
+      --accent: #e8a020; --text: #e8e8e8; --muted: #888; --card: #161616;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.6; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    section { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; font-weight: 600; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+    .divider { width: 48px; height: 2px; background: var(--accent); margin-bottom: 3rem; }
+
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 60px; }
+    .hero-tag { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 800; line-height: 1.05; color: var(--text); margin-bottom: 1.5rem; }
+    h1 span { color: var(--accent); }
+    .hero-sub { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--muted); max-width: 580px; margin-bottom: 2.5rem; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3rem; }
+    .pill { background: var(--bg3); border: 1px solid var(--border); padding: 0.35rem 0.9rem; border-radius: 999px; font-size: 0.8rem; color: var(--muted); }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { padding: 0.75rem 1.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { background: #f0b030; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .skill-group { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; }
+    .skill-group h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+    .skill-list { list-style: none; }
+    .skill-list li { color: var(--muted); font-size: 0.875rem; padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+    .skill-list li:last-child { border-bottom: none; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem; display: flex; flex-direction: column; transition: border-color 0.25s, transform 0.2s; cursor: pointer; }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    .project-icon { font-size: 1.75rem; }
+    .project-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .badge { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; letter-spacing: 0.05em; }
+    .badge-company { background: #1a2a1a; color: #5dba5d; border: 1px solid #2a4a2a; }
+    .badge-freelance { background: #2a1a0a; color: var(--accent); border: 1px solid #4a2a0a; }
+    .badge-wip { background: #1a1a2a; color: #7a7aff; border: 1px solid #2a2a4a; }
+    .badge-disc { background: #2a1a1a; color: #ff6b6b; border: 1px solid #4a2a2a; }
+    .project-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+    .project-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .project-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; flex: 1; }
+    .project-img-wrap { width: 100%; background: radial-gradient(ellipse at center, #252525 0%, #161616 100%); border-radius: 6px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 180px; max-height: 220px; padding: 1rem; }
+    .project-img { max-width: 100%; max-height: 200px; width: auto; height: auto; display: block; border-radius: 4px; }
+    .project-img-placeholder { width: 100%; aspect-ratio: 16/9; border-radius: 6px; margin-bottom: 1.25rem; background: var(--bg3); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.05em; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+    .tag { font-size: 0.7rem; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); padding: 0.2rem 0.55rem; border-radius: 4px; }
+
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; overflow-y: auto; padding: 2rem; }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; max-width: 720px; width: 100%; padding: 2.5rem; margin: auto; position: relative; }
+    .modal-close { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
+    .modal-close:hover { color: var(--text); }
+    .modal h3 { font-size: 1.4rem; margin-bottom: 0.35rem; }
+    .modal-section { margin-bottom: 1.5rem; }
+    .modal-section h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.6rem; }
+    .modal-section p, .modal-section li { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .modal-section ul { padding-left: 1.25rem; }
+    .modal-section li { margin-bottom: 0.3rem; }
+
+    .contact-inner { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 3rem; text-align: center; max-width: 560px; margin: 0 auto; }
+    .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
+
+    footer { border-top: 1px solid var(--border); text-align: center; padding: 2rem; color: var(--muted); font-size: 0.8rem; }
+
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .blog-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem; display: flex; flex-direction: column; transition: border-color 0.25s, transform 0.2s; cursor: pointer; }
+    .blog-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .blog-category { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 0.6rem; }
+    .blog-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.65rem; line-height: 1.35; }
+    .blog-excerpt { font-size: 0.875rem; color: var(--muted); line-height: 1.75; flex: 1; margin-bottom: 1.25rem; }
+    .blog-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .blog-read { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; }
+    .blog-num { font-size: 2rem; font-weight: 800; color: var(--border); line-height: 1; }
+    .blog-modal-body h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin: 1.5rem 0 0.5rem; }
+    .blog-modal-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.75rem; }
+    .blog-modal-body ul { padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .blog-modal-body li { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.3rem; }
+    .blog-modal-body strong { color: var(--text); }
+
+    @media (max-width: 680px) {
+      .about-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">HM</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-tag">Hardware Engineer · Mechanical Designer</div>
+  <h1>Hassan<br><span>Mustafa</span></h1>
+  <p class="hero-sub">Mechanical Design Engineer at AIO App Inc. | CSWA Certified | NUST Mechanical Engineering '23. I take products from ideation to production — designing enclosures, CAD, tooling, and manufacturing packages that actually get built.</p>
+  <div class="hero-pills">
+    <span class="pill">SolidWorks · Siemens NX</span>
+    <span class="pill">Injection Moulding</span>
+    <span class="pill">DFM / DFA / DFMEA</span>
+    <span class="pill">EVT → Production</span>
+    <span class="pill">IP Rating Design</span>
+    <span class="pill">CNC · 3D Printing · Sheet Metal</span>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View Projects</a>
+    <a class="btn btn-outline" href="#contact">Get in Touch</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-tag">About</div>
+  <h2>Building hardware that ships.</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong style="color:var(--text)">Mechanical Design Engineer at AIO App Inc.</strong> — a stealth-mode startup I joined straight out of university, two years before it went public. I graduated in Mechanical Engineering from <strong style="color:var(--text)">CEME, NUST (Class of 2023)</strong> and hold a <strong style="color:var(--accent)">CSWA certification</strong>.</p>
+      <p>Within two years of starting my career, I was on factory floors in Shenzhen, China — working days and nights to take products from T0/T1 mould samples through to mass production. Most recently, I ran a 4-week China trip covering 4 products across 3 assembly lines simultaneously: Wireless Charging Pad, Tableside AI Device, Self-Ordering KIOSK 27", and Mega KIOSK 65". My CTO's words when I landed: <em style="color:var(--text)">"Actually, now you have graduated."</em></p>
+      <p>I also take on freelance mechanical design projects, delivering complete packages for clients in North America. Every project is grounded in DFM and DFA — I design for how things will actually be made and assembled, not just how they look in CAD.</p>
+      <p style="margin-top:1.5rem"><a href="https://www.linkedin.com/in/m-hassan-mustafa/" target="_blank" style="color:var(--accent);text-decoration:none;font-size:0.875rem;border:1px solid var(--accent);padding:0.4rem 1rem;border-radius:4px;">LinkedIn Profile →</a></p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card"><div class="stat-num">8+</div><div class="stat-label">Products Designed</div></div>
+      <div class="stat-card"><div class="stat-num">4×</div><div class="stat-label">China Factory Trips</div></div>
+      <div class="stat-card"><div class="stat-num">CSWA</div><div class="stat-label">SolidWorks Certified</div></div>
+      <div class="stat-card"><div class="stat-num">NUST</div><div class="stat-label">Mech. Eng. '23</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-tag">Skills</div>
+  <h2>What I work with.</h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skill-group"><h3>CAD &amp; Design</h3><ul class="skill-list"><li>SolidWorks</li><li>Siemens NX</li><li>2D Drawings &amp; GD&amp;T</li><li>STEP / IGES / Parasolid</li><li>BOM management</li></ul></div>
+    <div class="skill-group"><h3>Manufacturing</h3><ul class="skill-list"><li>Injection Moulding (T0/T1)</li><li>CNC Machining</li><li>Sheet Metal</li><li>3D Printing (FDM)</li><li>Tooling &amp; mould feedback</li></ul></div>
+    <div class="skill-group"><h3>Engineering Process</h3><ul class="skill-list"><li>DFM / DFA / DFMEA</li><li>EVT / DVT / PVT / Pilot</li><li>IP56 / IP65 design</li><li>UL 1238 compliance</li><li>Thermal analysis</li></ul></div>
+    <div class="skill-group"><h3>Documentation</h3><ul class="skill-list"><li>BOM creation</li><li>Assembly procedures</li><li>Manufacturing guides</li><li>Supplier RFQ packages</li><li>QC / OQC docs</li></ul></div>
+    <div class="skill-group"><h3>Hardware Domains</h3><ul class="skill-list"><li>Enclosure design</li><li>Sealing &amp; locking systems</li><li>Payment terminal integration</li><li>Touchscreen / RFID / NFC</li><li>Furniture design</li></ul></div>
+    <div class="skill-group"><h3>Suppliers &amp; Process</h3><ul class="skill-list"><li>China supplier management</li><li>Factory mould visits</li><li>McMaster-Carr sourcing</li><li>Globalwell (GW) assembly</li><li>Freelance project delivery</li></ul></div>
+    <div class="skill-group"><h3>Education &amp; Certs</h3><ul class="skill-list"><li>CSWA — Certified SolidWorks Associate</li><li>B.E. Mechanical Engineering</li><li>CEME, NUST (Class of 2023)</li><li>High Achievers of CEME &amp; NUST</li><li>Islamabad, Pakistan</li></ul></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-tag">Projects</div>
+  <h2>Selected work.</h2>
+  <div class="divider"></div>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<section id="blog">
+  <div class="section-tag">Blog</div>
+  <h2>Lessons from the field.</h2>
+  <div class="divider"></div>
+  <div class="blog-grid" id="blogGrid"></div>
+</section>
+
+<section id="contact">
+  <div class="section-tag">Contact</div>
+  <h2>Let's work together.</h2>
+  <div class="divider"></div>
+  <div class="contact-inner">
+    <p>Open to freelance mechanical design projects. If you need a product designed, documented, and ready for manufacturing — let's talk.</p>
+    <a class="btn btn-primary" href="mailto:hassankhokhar468@gmail.com">hassankhokhar468@gmail.com</a>
+  </div>
+</section>
+
+<footer><p>© 2026 Hassan Mustafa · Mechanical Design Engineer · Islamabad, Pakistan · <a href="https://www.linkedin.com/in/m-hassan-mustafa/" target="_blank" style="color:var(--accent);text-decoration:none;">LinkedIn</a></p></footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  { icon:"🖥️", img:"images/kiosk-1.0.jpg", name:"KIOSK 1.0", type:"company", period:"Oct 2023 – Present", client:"AIO App Inc.",
+    desc:"Self-ordering 27\" restaurant kiosk with Adyen AMS payment, NFC, MagSafe WLC, and wall/floorstand variants. Led full mechanical design from prototyping through mass production.",
+    tags:["Injection Moulding","VESA Mount","NFC","Payment Integration","Production"],
+    role:"Ideation → Prototype → EVT → DVT → PVT → Pilot → Production",
+    highlights:["27″ touchscreen enclosure with Adyen AMS, NFC, and MagSafe WLC integration","Wall mount and floorstand variants designed","T0 and T1 mould iterations — resolved warpage and parting line issues","Pogo-pin power delivery system for clean cable management","CMF: matte black ABS body with aluminium accent elements","Production QC tracked across multiple batches"],
+    learnings:["Injection mould tooling requires tight collaboration from T0 — small geometry issues compound","Pogo pins need precise positional tolerance for reliable contact across units","Sharing core components between variants reduces BOM complexity"]
+  },
+  { icon:"📱", img:"images/Nugget .png", imgs:["images/Nugget .png","images/nugget.jpg.png"], name:"Nugget (T7N)", type:"company", period:"2023 – 2026", client:"AIO App Inc.",
+    desc:"7-inch tablet-based ordering device taken from ideation to mass production. Features a custom WLC injection-moulded pad, 10-step assembly line optimised for 40–45s cycle time.",
+    tags:["7\" Tablet","WLC","Assembly Line","BOM Management"],
+    role:"Ideation → Prototype → EVT → DVT → PVT → Pilot → Production",
+    highlights:["Custom wireless charging pad with T0/T1 mould iterations","10-step assembly guide at 40–45s cycle time across 20 stations","Multi-batch production BOM with unit cost tracking","T0 issues: sink marks, draft angle, gate location — resolved at T1","FTT improved from ~80% to 96% overall"],
+    learnings:["WLC coil positioning is critical — mm offset causes charging drop-off","Assembly cycle time is a system property: station layout, fixtures, and tolerances all affect it","FTT data drives DFM improvements — track it from day one"]
+  },
+  { icon:"🖥️", img:"images/kds-stand.jpg", name:"Countertop KDS Stand", type:"company", period:"2024", client:"AIO App Inc.",
+    desc:"Small countertop stand converting a 15.6\" KDS into a countertop kiosk for restaurants without wall space. Progressed from local prototype to 90-unit production run with Shenzhen supplier Runze.",
+    tags:["Sheet Metal","Countertop","KDS","Supplier: Runze"],
+    role:"Ideation → 2D Drawings → Prototyping → Production",
+    highlights:["Used 15.6\" KDS repurposed as compact countertop kiosk","1 local prototype → 2–3 China samples → 20 pcs → 90 pcs","Supplier: Shenzhen Runze Hardware — ¥740/unit for KDS-V2","2D drawings and STEP files delivered to supplier"],
+    learnings:["DFM and DFA matter even on small projects — getting geometry right early saves rework","Clear 2D drawings and a good supplier relationship reduce back-and-forth significantly"]
+  },
+  { icon:"💳", img:"images/payment-stand.jpg", name:"Payment Stand", type:"disc", period:"Oct 2023", client:"AIO App Inc.",
+    desc:"Countertop stand for Stripe M2 and Square payment terminals. Multiple CAD iterations completed before the project was discontinued — company no longer needed the product.",
+    tags:["Payment Terminal","Stripe M2","IR Sensor","Discontinued"],
+    role:"Ideation → CAD (V1, V2, V3) → Discontinued",
+    highlights:["Designed for Stripe M2 and Square terminal compatibility","V1, V2, V3 CAD iterations completed","IR sensor integration explored","Local prototypes built; never progressed to China production"],
+    learnings:["Not all projects ship — document decisions and rationale so future engineers understand why","Multi-version CAD with clear versioning avoids confusion on historical designs"]
+  },
+  { icon:"🖥️", img:"images/kiosk-2.0.jpg", name:"KIOSK 2.0", type:"wip", period:"2025 – Present", client:"AIO App Inc.",
+    desc:"Second-generation kiosk with custom PCB (replacing off-the-shelf SOM), targeting 3 screen sizes. 20-unit EVT build completed with Globalwell. DFMEA completed June 2026.",
+    tags:["Custom PCB","EVT","Globalwell","DFMEA","3 Sizes"],
+    role:"Ideation → EVT Build → DVT (pending)",
+    highlights:["Custom PCB by AIO electronics team — first internal board vs. off-the-shelf SOM","3 screen size variants planned","20-unit EVT assembled by Globalwell","DFMEA V1 June 2026 — highest RPNs: Wrong pasting (256), NFC range (192), Wrong pin-out (160)","Mould T0 feedback: 9 issues documented"],
+    learnings:["Custom PCB brings new failure modes — DFMEA is essential when moving away from off-the-shelf","EVT is about finding issues, not proving perfection — catching NFC range and pasting defects early is the goal"]
+  },
+  { icon:"🤖", img:"images/petoi-robot.jpg", name:"Petoi Robot", type:"freelance", period:"Dec 8–21, 2024", client:"Freelance",
+    desc:"Converted Petoi quadruped robot from injection-moulded to 3D-printed and CNC-machined design. Applied DFA/DFM to reduce part and screw count; integrated McMaster-Carr hardware with verified CAD clearances.",
+    tags:["3D Printing","CNC","DFA/DFM","McMaster-Carr","Quadruped Robot"],
+    role:"Ideation → Full design package → Client builds prototype",
+    highlights:["9 parts: Main body, Top Cover, Ball Pawns (×8) — 3D printed; Forearm (×4), Femur L/R — CNC machined","3 full assembly versions (Dec 8, 14, 16) with iterative DFM improvements","All McMaster hardware with exact part numbers and hole clearances verified in CAD","Motor mounting: threaded insert vs. through-hole nut pocket evaluated","Wall thickness >1.5mm, fillets on all exterior edges, screwdriver clearances confirmed","Deliverables: BOM, Purchase List (with links), Assembly Procedure, Screw Guide, 2D drawings"],
+    learnings:["DFA: fewer parts and single screw type throughout reduces assembly errors","McMaster models allow in-CAD clearance verification before purchase — saves trial-and-error","Complete documentation means client can build independently without follow-up questions"]
+  },
+  { icon:"🪑", img:"images/arm-chair.jpg", name:"Arm Chair Design", type:"freelance", period:"Jun 22–29, 2025", client:"Freelance",
+    desc:"Wooden arm chair from ideation to full fabrication package. Applied ergonomic seating angles, woodworking principles, and DFA — single screw type throughout, glue for panel joints, screws at structural brackets.",
+    tags:["Woodworking","DFA","Ergonomics","SolidWorks","Furniture"],
+    role:"Ideation → CAD → Full documentation → Client builds",
+    highlights:["15-part BOM: lumber, MDF, foam (50mm), leather/cloth","Side profiles: CNC router milled or lumber — both options documented","4-step assembly guide with reference images","Single screw type throughout: Phillips Flat Head (McMaster 90294A113)","11 × 2D PDF drawings for fabrication","Triangular brackets at seat-back junction for structural strength"],
+    learnings:["Chair comfort starts with geometry — seat and back rake angles are the most critical design decision","DFA in furniture: one fastener, glue for flat joints, screws only where shear load is high","Mirrored sub-assemblies (seat = back construction) reduce assembler cognitive load"]
+  },
+  { icon:"⛽", img:"images/fuel-kiosk.jpg", name:"Fuel Manager KIOSK", type:"wip", period:"May 2026 – Present", client:"Flow Master Controls Inc., Texas",
+    desc:"Mechanical redesign of outdoor fuel dispensing kiosk targeting IP56 and UL 1238. 4-phase $500 engagement: benchmarking, concept selection, material and locking decisions, CAD engineering (in progress).",
+    tags:["IP56","UL 1238","PC/ABS","Southco Latch","Siemens NX","Enclosure"],
+    role:"Single mechanical design resource — full redesign from benchmarking through CAD",
+    highlights:["Front panel: PC/ABS (SABIC LNP ELCRES CX7410) injection moulded — UL 94 V-0 @ 1.5mm","Rear panel: Aluminum 5005-H34 sheet metal 2.0mm — permanently sea
